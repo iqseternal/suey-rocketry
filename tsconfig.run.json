@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+  },
+  "include": [
+    "packages",
+    "typings/components.d.ts",
+    "typings/env.d.ts",
+
+    // playground
+    "run/main.ts",
+    "run/env.d.ts",
+    "run/src/**/*"
+  ]
+}

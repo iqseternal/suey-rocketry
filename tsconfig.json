@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "target": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "rootDir": "./packages",
+    "moduleResolution": "node",
+    "paths": {
+      "*": ["./*"],
+      "@/*": ["./packages/*"]
+    },
+    "types": ["./packages/env.d.ts", "vue"],
+    "declaration": false,
+    "sourceMap": true,
+    "noEmitOnError": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "alwaysStrict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "skipLibCheck": true
+  },
+  "include": ["packages/**/*.ts", "packages/components/MacDocker/src/DockerMain.tsx", "packages/components/MacDocker/src/DockerItem.tsx", "packages/components/MacDocker/src/DockerControl.tsx", "packages/components/MacDocker/src/Docker.tsx"],
+  "exclude": ["**.spec.ts", "dist", "node_modules"]
+}

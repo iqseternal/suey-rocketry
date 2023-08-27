@@ -1,0 +1,15 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  dist:
+    specifier: link:..\dist
+    version: link:../dist
+  packages:
+
+    specifier: link:..\packages
+
+    version: link:../packages

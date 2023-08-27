@@ -1,0 +1,19 @@
+
+:root {
+  --layout-background: url('https://images.unsplash.com/photo-1682685797769-481b48222adf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+
+  --layout-docker-divider-line-style: 1px solid white; // 分割线样式
+  --layout-docker-padding: 8px; // docer 的内 padding 值
+  --layout-docker-redius: 12px; // docer 的圆角属性值
+  --layout-docker-bg: rgba(255, 255, 255, 1); // 背景色, 这个会被做出毛玻璃效果
+  --layout-docker-bg-blur: 64px; // 毛玻璃像素
+  --layout-docker-margin-bottom: 15px; // margin-bottom, 与屏幕底部之间的间隙
+
+  --layout-docker-hidden-bg: linear-gradient(to right, blue, red); // 被隐藏了之后的背景颜色
+
+  --layout-docker-item-size: 35px; // item 大小
+  --layout-docker-item-radius: 50% 40%; // item 的圆角属性值
+  --layout-docker-item-padding: 12px; // 内部padding大小
+  --layout-docker-item-margin-bottom: 15px; // 偏移初始量
+}
+
