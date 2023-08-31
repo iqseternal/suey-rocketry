@@ -1,87 +1,204 @@
+import { defineConfig } from "vitepress";
 
-import type { UserConfig } from 'vitepress';
-import fs from 'fs';
-import path from 'path';
-
-export const config: UserConfig = {
-  // app level config options
-  lang: 'en-US',
-
+export default defineConfig({
   title: 'Rocketry',
-  titleTemplate: 'for custom.', // 副标题
-  description: 'Vite & Vue powered static site generator.',
-  lastUpdated: true,
-
-  base: '/rokcetry/',
-  cleanUrls: true, // 删除尾随的 html url, 生成干净的 URL
-
-  head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
-    // [
-    //   'script',
-    //   { id: 'register-sw' },
-    //   `;(() => {
-    //     if ('serviceWorker' in navigator) {
-    //       navigator.serviceWorker.register('/sw.js')
-    //     }
-    //   })()`
-    // ]
-  ],
-  rewrites: { // 自定义 URL映射
-    ['source/:page']: 'destination/:page'
-  },
-
+  description: 'Provide Vue with rocket propulsion',
+  lang: 'zh',
+  base: '/docs/',
   themeConfig: {
-    // selectText: '选择语言', // 页面右上角选择语言label
-    // lebel: '简体中文', // 页面右上角选择语言下拉框 value
-    langMenuLabel: '?',
-    sidebarMenuLabel: 's',
-    search: {
-      provider: 'local',
-      options: {
-        detailedView: false,
-        disableDetailedView: false
-      }
-    },
+    logo: '/logo.svg',
+    siteTitle: 'Rocketry', // 会显示在页面左上角
+    i18nRouting: true,
     nav: [
-      { text: '指南', link: '/guide/' }
+      {
+        text: 'Guide',
+        items: [
+          { text: 'index', link: '/zh/guide/index' },
+          { text: 'Button', link: '/zh/guide/Button' },
+          { text: 'Card', link: '/zh/guide/Card' }
+        ]
+      },
+      {
+        text: '链接',
+        items: [
+          { text: 'vitepress', link: 'https://vitepress.dev/reference/default-theme-config', target: '_blank' }
+        ]
+      },
+      {
+        text: 'Lang',
+        items: [
+          { text: '中文', link: '/zh/' },
+          { text: 'English', link: '/en/' }
+        ]
+      }
     ],
     sidebar: {
-      ['guide']: [
+      zh: [
         {
-          text: 'guide',
-          collapsed: true,
+          text: 'Guide',
+          collapsed: false,
           items: [
             { text: 'Introduction', link: '/introduction' },
-            { text: 'Get Start', link: '../guide/Card.md' }
-          ]
-        },
-        {
-          text: 'guide',
-          items: [
-            { text: 'Introduction', link: '/introduction' },
-            { text: 'Get Start', link: '../guide/Card.md' }
-          ]
-        },
-        {
-          text: 'guide',
-          items: [
-            { text: 'Introduction', link: '/introduction' },
-            { text: 'Get Start', link: '../guide/Card.md' },
-            {
-              text: 'guide',
-              items: [
-                { text: 'Introduction', link: '/introduction' },
-                { text: 'Get Start', link: '../guide/Card.md' }
-              ]
-            }
+            { text: 'Getting Started', link: '/getting-started' },
+
           ]
         }
       ]
     },
-    sidebarDepth: 2
+    aside: true,
+    outline: {
+      level: [1, 6],
+      label: '在此页面上'
+    },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+      // {
+      //   icon: {
+      //     svg: ``
+      //   },
+      //   link: '...'
+      // },
+      // { icon: 'mastodon', link: '' }
+    ],
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2019-present Evan You'
+    },
+    // editLink: {
+    //   pattern: 'https://github.com/vuejs/vitepress/edit/main/docs/:path',
+    //   text: 'Edit this page on GitHub'
+    // },
+    lastUpdated: {
+      text: 'Updated at',
+      formatOptions: {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      }
+    },
+    // carbonAds: {
+    //   code: 'your-carbon-code',
+    //   placement: 'asdada'
+    // },
+    docFooter: {
+      prev: 'prev',
+      next: 'next'
+    },
+    sidebarMenuLabel: 'Menu',
+    returnToTopLabel: 'Return to top',
+    langMenuLabel: 'Change language',
+    search: {
+      provider: 'local',
+      options: {
+        locales: {
+          zh: {
+            translations: {
+              button: {
+                buttonText: '搜索文档',
+                buttonAriaLabel: '搜索文档'
+              },
+              modal: {
+                footer: {
+                  selectText: '选择',
+                  navigateText: '切换',
+                  closeText: '关闭'
+                },
+
+              }
+            }
+          }
+        }
+      }
+    },
   },
-};
+  locales: {
+    '/': { label: '简体中文', lang: 'zh', },
+    zh: {
+      label: '简体中文',
+      lang: 'zh',
+      title: '简体中文',
+      description: '点击切换到中文文档',
 
+      themeConfig: {
+        nav: [
+          {
+            text: '指导',
+            items: [
+              { text: 'index', link: '/zh/guide/index' },
+              { text: 'Button', link: '/zh/guide/Button' },
+              { text: 'Card', link: '/zh/guide/Card' }
+            ]
+          },
+          {
+            text: '链接',
+            items: [
+              { text: 'vitepress', link: 'https://vitepress.dev/reference/default-theme-config', target: '_blank' }
+            ]
+          },
+          {
+            text: 'Lang',
+            items: [
+              { text: '中文', link: '/zh/' },
+              { text: 'English', link: '/en/' }
+            ]
+          }
+        ],
+        sidebar: [
+          {
+            text: 'Guide',
+            collapsed: false,
+            items: [
+              { text: 'Introduction', link: '/introduction' },
+              { text: 'Getting Started', link: '/getting-started' },
 
-export default config;
+            ]
+          }
+        ]
+      }
+    },
+    en: {
+      label: '简体中文',
+      lang: 'en',
+      link: '/en/',
+      title: 'English',
+      description: 'click to english doc.',
+
+      themeConfig: {
+        nav: [
+          {
+            text: 'Guide',
+            items: [
+              { text: 'index', link: '/en/guide/index' },
+              { text: 'Button', link: '/en/guide/Button' },
+              { text: 'Card', link: '/en/guide/Card' }
+            ]
+          },
+          {
+            text: 'Link',
+            items: [
+              { text: 'vitepress', link: 'https://vitepress.dev/reference/default-theme-config', target: '_blank' }
+            ]
+          },
+          {
+            text: 'Lang',
+            items: [
+              { text: '中文', link: '/zh/' },
+              { text: 'English', link: '/en/' }
+            ]
+          }
+        ],
+        sidebar: [
+          {
+            text: 'Guide',
+            collapsed: false,
+            items: [
+              { text: 'Introduction', link: '/introduction' },
+              { text: 'Getting Started', link: '/getting-started' },
+
+            ]
+          }
+        ]
+
+      }
+    }
+  }
+});
