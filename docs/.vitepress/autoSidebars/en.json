@@ -1,0 +1,24 @@
+{
+  "/guide/": [
+    {
+      "text": "en", "collapsed": false,
+      "items": [
+        {
+          "text": "Guide", "collapsed": false,
+          "items": [
+            { "text": "默认", "link": "/en/en/guide/index" }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Guide", "collapsed": false,
+      "items": [
+        {
+          "text": "指引",
+          "link": "/en/guide/index"
+        }
+      ]
+    }
+  ]
+}

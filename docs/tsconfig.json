@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
-    "moduleResolution": "Node"
-  }
+    "lib": ["ESNEXT", "ESNext.String"],
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  },
+  "include": [".vitepress/**/*.ts", "**/*.ts"]
 }

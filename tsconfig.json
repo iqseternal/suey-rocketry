@@ -31,6 +31,6 @@
     "noPropertyAccessFromIndexSignature": false,
     "skipLibCheck": true
   },
-  "include": ["packages/**/*.ts", "packages/components/MacDocker/src/DockerMain.tsx", "packages/components/MacDocker/src/DockerItem.tsx", "packages/components/MacDocker/src/DockerControl.tsx", "packages/components/MacDocker/src/Docker.tsx"],
+  "include": ["packages/**/*.ts", "packages/**/*.tsx"],
   "exclude": ["**.spec.ts", "dist", "node_modules"]
 }
