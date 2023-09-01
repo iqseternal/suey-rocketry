@@ -1,7 +1,7 @@
 
 基于VUE3的一款个人组件库
 
-pnpm
+pnpm install @suey/rocketry --save
 
 组件已经可以正常使用, RMacDocker, RMacDockerItem, RMacDockerControl
 文档正在编写中, 目前仅给出一个使用样例

@@ -1,13 +1,14 @@
 import { defineConfig } from "vitepress";
+import * as DEFINE from './constants';
 
 export default defineConfig({
-  title: 'Rocketry',
+  title: DEFINE.TITLE,
   description: 'Provide Vue with rocket propulsion',
   lang: 'zh',
-  base: '/docs/',
+  base: DEFINE.BASE_URL,
   themeConfig: {
     logo: '/logo.svg',
-    siteTitle: 'Rocketry', // 会显示在页面左上角
+    siteTitle: DEFINE.TITLE, // 会显示在页面左上角
     i18nRouting: true,
     nav: [
       {
@@ -111,13 +112,11 @@ export default defineConfig({
     },
   },
   locales: {
-    '/': { label: '简体中文', lang: 'zh', },
     zh: {
       label: '简体中文',
       lang: 'zh',
-      title: '简体中文',
+      title: 'Rocketry',
       description: '点击切换到中文文档',
-
       themeConfig: {
         nav: [
           {
@@ -133,13 +132,6 @@ export default defineConfig({
             items: [
               { text: 'vitepress', link: 'https://vitepress.dev/reference/default-theme-config', target: '_blank' }
             ]
-          },
-          {
-            text: 'Lang',
-            items: [
-              { text: '中文', link: '/zh/' },
-              { text: 'English', link: '/en/' }
-            ]
           }
         ],
         sidebar: [
@@ -147,21 +139,20 @@ export default defineConfig({
             text: 'Guide',
             collapsed: false,
             items: [
-              { text: 'Introduction', link: '/introduction' },
-              { text: 'Getting Started', link: '/getting-started' },
-
+              { text: '介绍', link: '/zh/guide/what-is-rocketry' },
+              { text: '按钮', link: '/zh/guide/Button' },
+              { text: '卡片', link: '/zh/guide/Card' }
             ]
           }
-        ]
+        ],
       }
     },
     en: {
-      label: '简体中文',
+      label: '英语',
       lang: 'en',
       link: '/en/',
-      title: 'English',
+      title: 'Rocketry',
       description: 'click to english doc.',
-
       themeConfig: {
         nav: [
           {
@@ -176,13 +167,6 @@ export default defineConfig({
             text: 'Link',
             items: [
               { text: 'vitepress', link: 'https://vitepress.dev/reference/default-theme-config', target: '_blank' }
-            ]
-          },
-          {
-            text: 'Lang',
-            items: [
-              { text: '中文', link: '/zh/' },
-              { text: 'English', link: '/en/' }
             ]
           }
         ],

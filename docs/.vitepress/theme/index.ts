@@ -7,6 +7,7 @@ import { watchEffect } from "vue";
 import { useRouter } from "vitepress";
 
 import './style.css';
+import { BASE_URL } from "../constants";
 
 const define = <T>(value: T): T => value;
 
@@ -21,34 +22,13 @@ export default define<Theme>({
     const { lang } = useData();
     const router = useRouter();
 
-    let prePath: string | undefined = void 0;
-    let preLang: string | undefined = void 0;
-
     watchEffect(() => {
       if (inBrowser) {
-        if (lang) {
-          const path = router.route.path;
-          const language = lang.value;
+        // 处理跟路由的时候没有默认语言的配置进入
+        if (router.route.path === BASE_URL) router.go(BASE_URL + lang.value + '/');
 
-          if (path.includes(language)) {
-            if (router.route.path === `/docs/${language}`) {
-              router.go(`${router.route.path.replace(`/${preLang}/`, `/${language}/`)}`);
-            }
-            // console.log(router.route);
-            // console.log('进入了第1个匹配');
-            // router.go(`/${lang.value}/${router.route.path.split(`//`)}`);
-          }
-          else {
-            preLang = language;
-            prePath = `${router.route.path}/${lang.value}`;
-            router.go(`${router.route.path}/${lang.value}`);
-          }
-
-          console.log(router.route.path, lang.value);
-
-
-        }
-        // document.cookie = `nf_lang=${lang.value}; expires=Mon, 1 Jan 2024 00:00:00 UTC; path=/`
+        // 这里会记录当前的语言, 自动更换
+        document.cookie = `nf_lang=${lang.value}; expires=Mon, 1 Jan 2024 00:00:00 UTC; path=/`
       }
     })
   }
