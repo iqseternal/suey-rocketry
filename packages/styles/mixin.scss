@@ -1,27 +1,11 @@
 
-@mixin width($width, $minWidth: unset, $maxWidth: unset) {
-  width: $width;
-  min-width: $minWidth;
-  max-width: $maxWidth;
-}
+@mixin width($width, $minWidth: unset, $maxWidth: unset) { width: $width;min-width: $minWidth;max-width: $maxWidth; }
+@mixin height($height, $minHeight: unset, $maxHeight: unset) { height: $height;min-height: $minHeight;max-height: $maxHeight; }
 
-@mixin height($height, $minHeight: unset, $maxHeight: unset) {
-  height: $height;
-  min-height: $minHeight;
-  max-height: $maxHeight;
-}
+@mixin positionLt($type: absolute, $top: 0, $left: 0) { position: absolute;top: $top;left: $left; }
+@mixin positionRb($type: absolute, $bottom: 0, $right: 0) { position: absolute;bottom: $bottom;right: $right; }
 
-@mixin positionLt($type: absolute, $top: 0, $left: 0) {
-  position: absolute;
-  top: $top;
-  left: $left;
-}
-
-@mixin positionRb($type: absolute, $bottom: 0, $right: 0) {
-  position: absolute;
-  bottom: $bottom;
-  right: $right;
-}
+@mixin overflow($scroll: scroll) {overflow-x: hidden;overflow-y: $scroll !important;}
 
 @mixin displayFlex($content: space-around, $items: center) {
   display: flex;
@@ -30,13 +14,8 @@
   flex-shrink: 1;
 }
 
-@mixin overflow($scroll: scroll) {
-  overflow-x: hidden;
-  overflow-y: $scroll !important;
-}
-
 @mixin beautifulBar {
-  overflow-y: scroll !important;
+  @include overflow(scroll);
 
   @media screen and (orientation:portrait) and (max-device-width:768px) and (max-device-height:1024px),
   screen and (orientation:landscape) and (max-device-width:1024px) and (max-device-height:768px) {

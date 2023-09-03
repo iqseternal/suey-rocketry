@@ -1,4 +1,7 @@
-
 {
-  "main": "./index.ts"
+  "main": "./index.ts",
+  "dependencies": {
+    "pack-utils": "link:..\\pack-utils",
+    "@suey/packages": "1.1.11"
+  }
 }

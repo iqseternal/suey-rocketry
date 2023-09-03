@@ -1,0 +1,10 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  pack-utils:
+    specifier: link:..\pack-utils
+    version: link:../pack-utils

@@ -11,6 +11,8 @@
     // playground
     "run/main.ts",
     "run/env.d.ts",
-    "run/src/**/*"
+    "run/src/**/*",
+
+    "pack-utils/**/*.ts"
   ]
 }

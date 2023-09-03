@@ -1,0 +1,124 @@
+@import '../../../../styles/index.scss';
+
+:root {
+  --r-mac-docker-main-background: url('https://images.unsplash.com/photo-1682685797769-481b48222adf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+
+  --r-mac-docker-divider-line-style: 3px solid rgba(255, 255, 255, .5); // 分割线样式
+  --r-mac-docker-bottom: 20px;
+  --r-mac-docker-box-reflect-distance: -20px;
+  --r-mac-docker-padding: 11px 15px; // docer 的内 padding 值
+  --r-mac-docker-redius: 35px; // docer 的圆角属性值
+  --r-mac-docker-bg: rgba(255, 255, 255, 1); // 背景色; 这个会被做出毛玻璃效果
+  --r-mac-docker-bg-blur: 64px; // 毛玻璃像素
+  --r-mac-docker-margin-bottom: 15px; // margin-bottom; 与屏幕底部之间的间隙
+  --r-mac-docker-hidden-bg: linear-gradient(to right, blue, red); // 被隐藏了之后的背景颜色
+
+  --r-mac-docker-item-size: 45px; // item 大小
+  --r-mac-docker-item-radius: 50% 35%; // item 的圆角属性值
+  --r-mac-docker-item-padding: 12px; // 内部padding大小
+  --r-mac-docker-item-margin: 20px; // margin 值
+  --r-mac-docker-item-margin-bottom: 15px; // 偏移初始量
+}
+
+.view {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: var(--r-mac-docker-main-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  @include overflow(hidden);
+
+  main.content {
+    width: 100%;
+    // height: calc(100vh - var(--r-mac-docker-margin-bottom) - var(--r-mac-docker-item-size) - var(--r-mac-docker-padding) * 2 - var(--r-mac-docker-item-padding) * 2);
+    @include overflow(hidden);
+  }
+
+  footer.hidden {
+    .docker {
+      top: calc(var(--r-mac-docker-bottom) + var(--r-mac-docker-item-size) + var(--r-mac-docker-item-padding) * 2 + var(--r-mac-docker-padding) + 2px + var(--r-mac-docker-item-margin-bottom)) !important;
+      background: var(--r-mac-docker-hidden-bg) !important;
+      border-radius: var(--r-mac-docker-redius);
+      max-width: 300px !important;
+    }
+  }
+
+  footer.footer {
+    position: absolute;
+    padding-bottom: var(--r-mac-docker-margin-bottom);
+
+    border-radius: var(--r-mac-docker-redius);
+    bottom: var(--r-mac-docker-bottom);
+    transition: all .5s ease-out;
+
+    -webkit-box-reflect: below var(--r-mac-docker-box-reflect-distance) -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.05) 100%);
+    user-select: none;
+    @include width(100%);
+    @include height(unset, 40px);
+    @include displayFlex(center);
+
+    .docker {
+      position: relative;
+      top: 0;
+      background-color: unset;
+      padding: var(--r-mac-docker-padding);
+      height: calc(var(--r-mac-docker-item-size) + var(--r-mac-docker-item-padding) * 2);
+      @include displayFlex(space-around, flex-end);
+      max-width: 80vw;
+      flex-flow: row;
+      animation: all .1s ease-out;
+
+      div, section { z-index: 1; }
+
+      div.back {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--r-mac-docker-redius);
+        animation: all .5s ease-out;
+        @include positionLt(absolute, 0, 0);
+        @include overflow(hidden);
+
+        &::before {
+          content: '';
+          width: 100%;
+          height: 100%;
+          background-color: var(--r-mac-docker-bg);
+          filter: blur(var(--r-mac-docker-bg-blur)) opacity(0.8) contrast(100%);
+          z-index: 1;
+          animation: all .5s ease-out;
+          @include positionLt(absolute, 0, 0);
+        }
+      }
+
+      section.dockerItem {
+        flex-shrink: 0;
+        width: var(--r-mac-docker-item-size);
+        height: var(--r-mac-docker-item-size);
+        border-radius: var(--r-mac-docker-item-radius);
+        padding: var(--r-mac-docker-item-padding);
+        margin-left: var(--r-mac-docker-item-margin);
+        margin-bottom: calc(var(--i) * var(--r-mac-docker-item-margin-bottom));
+        white-space: nowrap;
+        transition: all 0.3s ease-out;
+        background-size: 140% 140%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        @include overflow(hidden);
+      }
+
+      section.dockerItem:last-child {
+        margin-right: var(--r-mac-docker-item-margin);
+      }
+
+      div.driverLine {
+        margin-left: var(--r-mac-docker-item-margin);
+        width: 0;
+        height: 100%;
+        border-left: var(--r-mac-docker-divider-line-style);
+      }
+    }
+  }
+}
+
+

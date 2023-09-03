@@ -2,11 +2,12 @@
   "compilerOptions": {
     "jsx": "preserve",
     "target": "ESNext",
+    "module": "Node16",
     "lib": ["DOM", "ESNext"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "rootDir": "./packages",
-    "moduleResolution": "node",
+    "rootDir": ".",
+    "moduleResolution": "Node16",
     "paths": {
       "*": ["./*"],
       "@/*": ["./packages/*"]
@@ -29,8 +30,13 @@
     "noUncheckedIndexedAccess": false,
     "noImplicitOverride": false,
     "noPropertyAccessFromIndexSignature": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "isolatedModules": false,
+    "allowUmdGlobalAccess": true,
+    "resolvePackageJsonExports": true
   },
-  "include": ["packages/**/*.ts", "packages/**/*.tsx"],
+  "include": ["packages/**/*.ts", "packages/**/*.tsx", "pack-utils/**/*.ts"],
   "exclude": ["**.spec.ts", "dist", "node_modules"]
 }

@@ -5,6 +5,13 @@ import VueMacros from 'unplugin-vue-macros/vite';
 
 export default defineConfig(async ({ mode }) => {
   return {
+    css: {
+      modules: {
+
+
+      }
+    },
+
     resolve: {
 
     },
