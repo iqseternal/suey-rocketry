@@ -1,22 +1,24 @@
-import { defineComponent, h, ref, inject, provide, onMounted } from 'vue';
-import type { Component, ComponentCustomProps, PropType, Ref } from 'vue';
+import { defineComponent, h, ref, inject, provide, onMounted, onUpdated } from 'vue';
+import type { Component, ComponentCustomProps, PropType, Ref, RendererElement, VNode, RendererNode } from 'vue';
 import { DEFINE_PROVIDER, cssVars } from './DEFINE';
 import type { Rt_CssVarsProps } from './DEFINE';
 
-import { useTimeout } from '@suey/packages/hooks';
-import { registerCssVar, useCssVar, useCssVarForRoot, setCssVar, getCssVar, setStyleProperty, setStyleProperties, registerCssVarForRoot, getCssVarForRoot } from 'pack-utils';
+import { useTimeout } from './uilts';
+import { setCssVars, useCssVar, useCssVarForRoot, setCssVar, getCssVar, setStyleProperty, setStyleProperties, setCssVarsForRoot, getCssVarForRoot } from 'pack-utils';
 
-import { createCurve, baseCurve, useSlotProvide, toCssVarStr } from './uilts';
+import { createCurve, baseCurve, useSlotProvide, toCssVarStr, layout } from './uilts';
 
-import style from '../styles/index.module.scss';
+import style from './index.module.scss';
 
 const props = {
   driverNums: { type: Number, default: 4 }, // 当数量超过这么多个的时候, 自动设置 control
   driverEffectWidth: { type: Number, default: 400 }, // 曲线影响的距离
   driverMaxI: { type: Number, default: 2 }, // 最大曲线弧度
+
   autoDriver: { type: Boolean, default: true }, // 是否自动设置 control
   autoHidden: { type: Boolean, default: false }, // 是否自动影藏 docker
-  driverHidenTimer: { type: Number, default: 2000 }, // 自动隐藏 docker 的时间
+  autoHidenTimer: { type: Number, default: 3000 }, // 自动隐藏 docker 的时间
+
   cssVars: { type: Object as PropType<Partial<Rt_CssVarsProps>>, default: () => ({} as Rt_CssVarsProps) }
 };
 
@@ -30,68 +32,50 @@ export const Docker = defineComponent({
     const setCss = (cssVar: keyof Rt_CssVarsProps, value: string) => setCssVar(view.value, cssVar, value);
     const getCss = (cssVar: keyof Rt_CssVarsProps) => getCssVar(view.value, cssVar);
 
-    // onMounted(() => registerCssVar(view.value, cssVars));
-    // registerCssVarForRoot(cssVars);
-
-    const mainSlot = useSlotProvide(DEFINE_PROVIDER.SET_MAIN_SLOT); // 注册插槽
-    const controlSlot = useSlotProvide(DEFINE_PROVIDER.SET_CONTROL_SLOT);
+    // onMounted(() => setCssVars(view.value, cssVars));
+    // setCssVarsForRoot(cssVars);
+    const itemsVNode = slots.default && slots.default() as (VNode<RendererNode, RendererElement>[] | undefined);
+    const controlVNode = slots.control && slots.control();
 
     const hidden = ref(false);
-    const { cancelTimeout, perTimeout } = useTimeout();
+    const { cancelTimeout, perTimeout, timer: leaveTimer } = useTimeout();
+    const { cancelTimeout: moveCancelTimeout, perTimeout: movePreTimeout, timer: moveTimer } = useTimeout();
 
-    const vNode = slots.default && slots.default();
     function makeDockerItem() {
-      if (Array.isArray(vNode)) {
-        if (controlSlot.value) {
-          return (<>{vNode}<div class={style.driverLine}></div>{controlSlot.value()}</>);
+      if (Array.isArray(itemsVNode)) {
+        if (controlVNode) {
+          return (<>{itemsVNode}<div class={style.driverLine}></div>{controlVNode}</>);
         }
+        if ((itemsVNode[0].children as Array<any>).length >= props.driverNums) {
+          const last = (itemsVNode[0].children as Array<any>).pop();
 
-        if (vNode.length >= props.driverNums) {
-          const last = vNode.pop();
-          return (<>{vNode}<div class={style.driverLine}></div>{last}</>);
+          return (<>{itemsVNode}<div class={style.driverLine}></div>{last}</>);
         }
       }
-      return vNode;
+      return itemsVNode;
     }
 
     onMounted(() => {
+      // 获取 dockerItem 元素位置的函数, 获得元素中间的 x 坐标
       const elToCenter = (e: HTMLElement) => e.offsetLeft + parseFloat(getCss('--r-mac-docker-item-size').replace('px', '')) / 2;
       const elToRight = (e: HTMLElement) => e.offsetLeft + parseFloat(getCss('--r-mac-docker-item-size').replace('px', ''));
 
-      function layout(fn: typeof baseCurve) {
-        (docker.value.querySelectorAll(`section.${style.dockerItem}`) as unknown as HTMLElement[]).forEach((child, index, childrenList) => {
-          if (childrenList.length >= props.driverNums && index === childrenList.length - 1) return;
+      const resetLayout = () => layout(docker.value, () => 0, elToCenter, props.driverMaxI, props.driverNums);
 
-          const i = fn(elToCenter(child));
-
-          setCssVar(child, '--i', i.toString());
-
-          i === 0
-            ? setStyleProperties(child, { width: toCssVarStr('--r-mac-docker-item-size'), height: toCssVarStr('--r-mac-docker-item-size') })
-            : setStyleProperties(child, {
-              width: `calc(${toCssVarStr('--r-mac-docker-item-size')} * ${i / props.driverMaxI / 3 + 1})`,
-              height: `calc(${toCssVarStr('--r-mac-docker-item-size')} * ${i / props.driverMaxI / 3 + 1})`
-            })
-        });
-      }
-
-      let timer
       docker.value.addEventListener('mousemove', (e) => {
-        if (timer) {
-          return;
-        }
-        timer = setTimeout(() => {
-          timer = void 0;
-        }, 10);
+        if (moveTimer.value) return;
+        movePreTimeout(() => {}, 20);
 
         const childrenList = docker.value.querySelectorAll(`section.${style.dockerItem}`);
+
         const curX = e.clientX - docker.value.offsetLeft;
+
         let distEl: HTMLElement | undefined = void 0;
 
         for (let i = 0;i < childrenList.length;i ++) {
           if (childrenList.length >= props.driverNums) {
             if (i === childrenList.length - 1) {
-              layout(() => 0);
+              resetLayout();
               return;
             }
           }
@@ -106,17 +90,15 @@ export const Docker = defineComponent({
         }
 
         if (!distEl) {
-          layout(() => 0);
+          resetLayout();
           return;
         }
 
         const curve = createCurve(elToCenter(distEl), props.driverEffectWidth, props.driverMaxI);
-        layout(curve);
+        layout(docker.value, curve, elToCenter, props.driverMaxI, props.driverNums);
       });
 
-      docker.value.addEventListener('mouseleave', (e) => {
-        layout(() => 0);
-      });
+      docker.value.addEventListener('mouseleave', (e) => resetLayout());
     });
 
     onMounted(() => {
@@ -125,12 +107,12 @@ export const Docker = defineComponent({
 
         perTimeout(() => {
           hidden.value = true;
-        }, props.driverHidenTimer);
+        }, props.autoHidenTimer);
       }
     });
 
     function autoHidden() {
-      footer.value.addEventListener('mousemove', (e) => {
+      view.value.addEventListener('mousemove', (e) => {
         if (
           !document.body ||
           !footer.value ||
@@ -139,21 +121,34 @@ export const Docker = defineComponent({
           cancelTimeout();
           hidden.value = false;
         }
+
         if (document.body?.clientHeight - e.clientY <= footer.value?.clientHeight) {
           cancelTimeout();
           if (hidden.value) hidden.value = false;
         }
+        else {
+
+          // if (!hidden.value) {
+
+          //   if (leaveTimer.value) return;
+
+          //   perTimeout(() => {
+          //     hidden.value = true;
+          //   }, props.autoHidenTimer);
+          // }
+        }
       });
+
       footer.value.addEventListener('mouseleave', _ => {
         perTimeout(() => {
           hidden.value = true;
-        }, props.driverHidenTimer);
+        }, props.autoHidenTimer);
       });
     }
 
     return () => (
       <div class={style.view} ref={view}>
-        <main class={style.content}>{mainSlot.value && mainSlot.value()}</main>
+        <main class={style.content}>{slots.main && slots.main()}</main>
 
         <footer class={hidden.value ? `${style.footer} ${style.hidden}` : `${style.footer}`} ref={footer}>
           <div class={style.docker} ref={docker}>

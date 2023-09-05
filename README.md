@@ -5,6 +5,7 @@ pnpm install @suey/rocketry --save
 
 组件已经可以正常使用, RMacDocker, RMacDockerItem, RMacDockerControl
 文档正在编写中, 目前仅给出一个使用样例
+这个示例正在疯狂编写和优化中... 请等待
 
 ```vue
 <template>
@@ -24,7 +25,7 @@ pnpm install @suey/rocketry --save
 </template>
 
 <script lang="ts" setup>
-import { RMacDocker, RMacDockerItem, RMacDockerControl, RMacDockerMain } from 'packages';
+import { RMacDocker, RMacDockerItem, RMacDockerControl, RMacDockerMain } from '@suey/rocketry';
 
 const descriptor = `关于样式的配置会在文档中说明.`;
 

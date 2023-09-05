@@ -6,14 +6,14 @@ export const setCssVar = <T extends string>(node: HTMLElement, cssVar: T, value:
 
 export const getCssVar = (node: HTMLElement, cssVar: string) => getComputedStyle(node).getPropertyValue(cssVar);
 
-export const registerCssVar = (node: HTMLElement, properties: Record<string, string>, isImportant?: boolean) =>
+export const setCssVars = (node: HTMLElement, properties: Record<string, string>, isImportant?: boolean) =>
   Object.keys(properties).forEach(prop => setCssVar(node, prop, properties[prop], isImportant));
 
 export const setCssVarForRoot = <T extends string>(cssVar: T, value: string) => setCssVar(cssRoot, cssVar, value);
 
 export const getCssVarForRoot = (cssVar: string) => getCssVar(cssRoot, cssVar);
 
-export const registerCssVarForRoot = (properties: Record<string, string>) => registerCssVar(cssRoot, properties);
+export const setCssVarsForRoot = (properties: Record<string, string>) => setCssVars(cssRoot, properties);
 
 export const setStyleProperty = <T extends keyof CSSStyleDeclaration>(node: HTMLElement, key: T, value: CSSStyleDeclaration[T]) => node.style[key] = value;
 

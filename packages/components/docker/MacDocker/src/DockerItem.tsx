@@ -1,8 +1,8 @@
-import { defineComponent, inject } from 'vue';
+import { defineComponent, inject, onUpdated } from 'vue';
 import type { Slots, VNode } from 'vue';
 import { DEFINE_PROVIDER } from './DEFINE';
 
-import style from '../styles/index.module.scss';
+import style from './index.module.scss';
 
 export const DockerItem = defineComponent({
   props: {

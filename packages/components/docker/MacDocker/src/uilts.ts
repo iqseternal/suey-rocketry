@@ -3,6 +3,28 @@ import type { Ref, Slot } from 'vue';
 import { ref, onBeforeMount, onBeforeUnmount, provide } from 'vue';
 
 import { cssVars } from './DEFINE';
+import type { Rt_CssVarsProps } from './DEFINE';
+
+import * as styles from './index.module.scss';
+import { setCssVar, setCssVars, PrinterService, setStyleProperties, getCssVar } from 'pack-utils';
+
+export const setDockerCssVar = (cssVar: keyof Rt_CssVarsProps, value: string) => {
+  const dockerDom = document.querySelector(`div.${styles.view}`) as HTMLElement;
+  if (!dockerDom) {
+    PrinterService.printError('The element has not been mounted. Please try calling it in the onMounted cycle.');
+    return;
+  }
+  setCssVar(dockerDom, cssVar, value);
+}
+
+export const setDockerCssVars = (cssVars: Rt_CssVarsProps) => {
+  const dockerDom = document.querySelector(`div.${styles.view}`) as HTMLElement;
+  if (!dockerDom) {
+    PrinterService.printError('The element has not been mounted. Please try calling it in the onMounted cycle.');
+    return;
+  }
+  setCssVars(dockerDom, cssVars);
+}
 
 /**
  * 将定义的 cssVars 变量转换为在 css 中使用的变量字符串 var(--xx-x--x)
@@ -63,9 +85,12 @@ export const useTimeout = () => {
     }
   }
 
-  const perTimeout = (callback: (args: void) => void, ms?: number) => {
+  const perTimeout = (callback: () => void, ms?: number) => {
     cancelTimeout();
-    timer.value = setTimeout(callback, ms);
+    timer.value = setTimeout(() => {
+      callback();
+      timer.value = void 0;
+    }, ms);
   };
 
   onBeforeMount(() => {
@@ -91,3 +116,45 @@ export const useSlotProvide = (provideKey: string) => {
   return slot;
 };
 
+/**
+ * 为 docker 内的元素布局
+ * @param el
+ * @param fn
+ * @param baseX
+ * @param driverMaxI
+ * @param driverNums
+ */
+export function layout(docker: HTMLElement, fn: typeof baseCurve, getCenterX: (child: HTMLElement) => number, driverMaxI: number, driverNums: number) {
+  (docker.querySelectorAll(`section.${styles.dockerItem}`) as unknown as HTMLElement[]).forEach((child, index, childrenList) => {
+    if (childrenList.length >= driverNums && index === childrenList.length - 1) return;
+
+    const i = fn(getCenterX(child));
+
+    setCssVar(child, '--i', i.toString());
+
+    i === 0
+      ? setStyleProperties(child, { width: toCssVarStr('--r-mac-docker-item-size'), height: toCssVarStr('--r-mac-docker-item-size') })
+      : setStyleProperties(child, {
+        width: `calc(${toCssVarStr('--r-mac-docker-item-size')} * ${i / driverMaxI / 3 + 1})`,
+        height: `calc(${toCssVarStr('--r-mac-docker-item-size')} * ${i / driverMaxI / 3 + 1})`
+      })
+  });
+}
+
+/**
+ * 查找一个元素的位置是否在 curX - spaing 到 curX + spacing 之间
+ * @param docker
+ * @param curX
+ * @param spacing
+ */
+export function findElForXInRegion(docker: HTMLElement, curX: number, spacing: number): HTMLElement | undefined {
+  const childrenList = (docker.querySelectorAll(`section.${styles.dockerItem}`) as unknown as HTMLElement[]);
+
+  for (let i = 0;i < childrenList.length;i ++) {
+
+
+
+  }
+
+  return void 0;
+}

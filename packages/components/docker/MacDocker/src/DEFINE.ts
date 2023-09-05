@@ -1,7 +1,7 @@
 
 import { provide, ref, onBeforeMount, onBeforeUnmount } from 'vue';
 
-import type { Slot } from 'vue';
+import type { Slot, Ref } from 'vue';
 
 
 export const DEFINE_PROVIDER = {

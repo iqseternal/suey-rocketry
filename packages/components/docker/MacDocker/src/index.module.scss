@@ -4,9 +4,12 @@
   --r-mac-docker-main-background: url('https://images.unsplash.com/photo-1682685797769-481b48222adf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
 
   --r-mac-docker-divider-line-style: 3px solid rgba(255, 255, 255, .5); // 分割线样式
-  --r-mac-docker-bottom: 20px;
+  --r-mac-docker-bottom: 40px;
   --r-mac-docker-box-reflect-distance: -20px;
-  --r-mac-docker-padding: 11px 15px; // docer 的内 padding 值
+
+  --r-mac-docker-padding-lr: 30px;
+  --r-mac-docker-padding-tb: 15px; // docer 的内 padding 值
+
   --r-mac-docker-redius: 35px; // docer 的圆角属性值
   --r-mac-docker-bg: rgba(255, 255, 255, 1); // 背景色; 这个会被做出毛玻璃效果
   --r-mac-docker-bg-blur: 64px; // 毛玻璃像素
@@ -31,28 +34,59 @@
 
   main.content {
     width: 100%;
-    // height: calc(100vh - var(--r-mac-docker-margin-bottom) - var(--r-mac-docker-item-size) - var(--r-mac-docker-padding) * 2 - var(--r-mac-docker-item-padding) * 2);
     @include overflow(hidden);
   }
 
   footer.hidden {
-    .docker {
-      top: calc(var(--r-mac-docker-bottom) + var(--r-mac-docker-item-size) + var(--r-mac-docker-item-padding) * 2 + var(--r-mac-docker-padding) + 2px + var(--r-mac-docker-item-margin-bottom)) !important;
+    bottom: calc(-1 * (
+      var(--r-mac-docker-padding-tb ) * 2 +
+      var(--r-mac-docker-item-padding) * 2 +
+      var(--r-mac-docker-item-size)
+    )) !important;
+
+    &::before {
+      animation: hiddenEnter .5s ease-out;
+      animation-delay: .6s;
+      animation-fill-mode: forwards;
+    }
+
+    div.docker {
       background: var(--r-mac-docker-hidden-bg) !important;
       border-radius: var(--r-mac-docker-redius);
       max-width: 300px !important;
+      min-width: 300px !important;
+      padding-left: 60px !important;
+      padding-right: 60px !important;
+      gap: 0px !important;
+      @include overflow(hidden);
+      opacity: 0;
+
+      section.dockerItem {
+        margin: 0 calc(var(--r-mac-docker-item-radius) / 2);
+      }
     }
   }
 
   footer.footer {
+    &::before {
+      content: '';
+      height: 5px;
+      color: white;
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      background: var(--r-mac-docker-hidden-bg);
+      border-radius: 5px 5px;
+      transition: all .5s ease-out;
+    }
     position: absolute;
-    padding-bottom: var(--r-mac-docker-margin-bottom);
-
     border-radius: var(--r-mac-docker-redius);
     bottom: var(--r-mac-docker-bottom);
-    transition: all .5s ease-out;
+    transition: all .6s ease-out;
 
-    -webkit-box-reflect: below var(--r-mac-docker-box-reflect-distance) -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.05) 100%);
+    -webkit-box-reflect: below 10px -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.05) 100%);
     user-select: none;
     @include width(100%);
     @include height(unset, 40px);
@@ -60,14 +94,18 @@
 
     .docker {
       position: relative;
-      top: 0;
-      background-color: unset;
-      padding: var(--r-mac-docker-padding);
+      background: unset;
+      opacity: 1;
+      padding: var(--r-mac-docker-padding-tb) var(--r-mac-docker-padding-lr);
       height: calc(var(--r-mac-docker-item-size) + var(--r-mac-docker-item-padding) * 2);
-      @include displayFlex(space-around, flex-end);
+      border-radius: var(--r-mac-docker-redius);
       max-width: 80vw;
+
+
+      gap: var(--r-mac-docker-item-margin);
+      transition: all .5s ease-out;
       flex-flow: row;
-      animation: all .1s ease-out;
+      @include displayFlex(space-around, flex-end);
 
       div, section { z-index: 1; }
 
@@ -97,22 +135,16 @@
         height: var(--r-mac-docker-item-size);
         border-radius: var(--r-mac-docker-item-radius);
         padding: var(--r-mac-docker-item-padding);
-        margin-left: var(--r-mac-docker-item-margin);
         margin-bottom: calc(var(--i) * var(--r-mac-docker-item-margin-bottom));
         white-space: nowrap;
-        transition: all 0.3s ease-out;
+        transition: all 0.4s ease-out;
         background-size: 140% 140%;
         background-position: center center;
         background-repeat: no-repeat;
         @include overflow(hidden);
       }
 
-      section.dockerItem:last-child {
-        margin-right: var(--r-mac-docker-item-margin);
-      }
-
       div.driverLine {
-        margin-left: var(--r-mac-docker-item-margin);
         width: 0;
         height: 100%;
         border-left: var(--r-mac-docker-divider-line-style);
@@ -122,3 +154,13 @@
 }
 
 
+@keyframes hiddenEnter {
+  from {
+    opacity: 0;
+    width: 100px;
+  }
+  to {
+    opacity: 1;
+    width: 300px;
+  }
+}

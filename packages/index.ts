@@ -8,3 +8,4 @@
 
 export { RMacDocker, RMacDockerItem, RMacDockerControl, RMacDockerMain } from './components/docker/MacDocker';
 export type { Rt_MacDockerCssVarProps } from './components/docker/MacDocker';
+export { rSetMacDockerCssVar, rSetMacDockerCssVars } from './components/docker/MacDocker';
