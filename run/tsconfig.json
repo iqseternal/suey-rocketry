@@ -1,4 +1,7 @@
 
 {
-  "extends": "../tsconfig.run.json"
+  "extends": "../tsconfig.run.json",
+  "compilerOptions": {
+
+  }
 }

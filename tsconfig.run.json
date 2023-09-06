@@ -1,18 +1,39 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    "jsx": "preserve",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "rootDir": ".",
+    "paths": {
+      "@suey/rocketry": ["./packages/index.ts"],
+      "@suey/rocketry/*": ["./packages/*"]
+    },
+    "moduleResolution": "Node",
+    "types": ["./env.d.ts", "vue"],
+    "declaration": false,
+    "sourceMap": true,
+    "noEmitOnError": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "alwaysStrict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "skipLibCheck": true,
+    "isolatedModules": false,
+    "allowUmdGlobalAccess": true
   },
-  "include": [
-    "packages",
-    "typings/components.d.ts",
-    "typings/env.d.ts",
-
-    // playground
-    "run/main.ts",
-    "run/env.d.ts",
-    "run/src/**/*",
-
-    "pack-utils/**/*.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.vue"],
+  "exclude": ["**.spec.ts", "dist", "node_modules"]
 }

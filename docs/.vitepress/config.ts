@@ -1,8 +1,18 @@
-import { defineConfig } from "vitepress";
+import { UserConfig, defineConfig } from 'vitepress';
 import * as CONSTANTS from './constants';
 import { i18Locales, i18SearchLocales } from "./i18";
 
+import { mdPlugin } from './plugin';
+import { demoblockVitePlugin, demoblockPlugin } from 'vitepress-theme-demoblock';
+import { containerPreview, componentPreview } from '@vitepress-demo-preview/plugin';
+
 export default defineConfig({
+  markdown: {
+    config: (md) => {
+      md.use(containerPreview);
+      md.use(componentPreview);
+    }
+  },
   title: CONSTANTS.TITLE,
   description: 'Provide Vue with rocket propulsion',
   lang: 'zh',

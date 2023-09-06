@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import VueMacros from 'unplugin-vue-macros/vite';
+import { join } from 'path';
 
 export default defineConfig(async ({ mode }) => {
   return {
@@ -11,9 +12,11 @@ export default defineConfig(async ({ mode }) => {
 
       }
     },
-
     resolve: {
-
+      alias: {
+        '@suey/rocketry': join(__dirname, '../packages'),
+        'pack-utils': join(__dirname, '../packages/pack-utils')
+      }
     },
     plugins: [
       VueMacros({

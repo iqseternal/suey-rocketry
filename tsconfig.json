@@ -2,15 +2,17 @@
   "compilerOptions": {
     "jsx": "preserve",
     "target": "ESNext",
-    "module": "Node16",
+    "module": "ESNext",
     "lib": ["DOM", "ESNext"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "rootDir": ".",
-    "moduleResolution": "Node16",
+    "rootDir": "./packages",
+    "baseUrl": "./",
+    "moduleResolution": "Node",
     "paths": {
       "*": ["./*"],
-      "@/*": ["./packages/*"]
+      "pack-utils": ["./packages/pack-utils/index.ts"],
+      "pack-utils/*": ["./packages/pack-utils/*"]
     },
     "types": ["./packages/env.d.ts", "vue"],
     "declaration": false,
@@ -31,12 +33,9 @@
     "noImplicitOverride": false,
     "noPropertyAccessFromIndexSignature": false,
     "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
     "isolatedModules": false,
-    "allowUmdGlobalAccess": true,
-    "resolvePackageJsonExports": true
+    "allowUmdGlobalAccess": true
   },
-  "include": ["packages/**/*.ts", "packages/**/*.tsx", "pack-utils/**/*.ts"],
+  "include": ["packages/**/*.ts", "packages/**/*.tsx"],
   "exclude": ["**.spec.ts", "dist", "node_modules"]
 }

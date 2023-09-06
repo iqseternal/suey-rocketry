@@ -5,8 +5,9 @@ import {
   unref,
   watch
 } from "./chunk-67UUJLDS.js";
+import "./chunk-2B2CG5KL.js";
 
-// node_modules/.pnpm/@vueuse+shared@10.4.0_vue@3.3.4/node_modules/@vueuse/shared/index.mjs
+// node_modules/.pnpm/@vueuse+shared@10.4.1_vue@3.3.4/node_modules/@vueuse/shared/index.mjs
 function tryOnScopeDispose(fn) {
   if (getCurrentScope()) {
     onScopeDispose(fn);
@@ -42,10 +43,11 @@ function identity(arg) {
   return arg;
 }
 
-// node_modules/.pnpm/@vueuse+core@10.4.0_vue@3.3.4/node_modules/@vueuse/core/index.mjs
+// node_modules/.pnpm/@vueuse+core@10.4.1_vue@3.3.4/node_modules/@vueuse/core/index.mjs
 function unrefElement(elRef) {
+  var _a;
   const plain = toValue(elRef);
-  return (plain == null ? void 0 : plain.$el) ?? plain;
+  return (_a = plain == null ? void 0 : plain.$el) != null ? _a : plain;
 }
 var defaultDocument = isClient ? window.document : void 0;
 var defaultNavigator = isClient ? window.navigator : void 0;
@@ -1111,7 +1113,7 @@ var createFocusTrap = function createFocusTrap2(elements, userOptions) {
   return trap;
 };
 
-// node_modules/.pnpm/@vueuse+integrations@10.4.0_focus-trap@7.5.2_vue@3.3.4/node_modules/@vueuse/integrations/useFocusTrap.mjs
+// node_modules/.pnpm/@vueuse+integrations@10.4.1_focus-trap@7.5.2_vue@3.3.4/node_modules/@vueuse/integrations/useFocusTrap.mjs
 function useFocusTrap(target, options = {}) {
   let trap;
   const { immediate, ...focusTrapOptions } = options;

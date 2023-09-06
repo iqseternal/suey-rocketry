@@ -1,12 +1,13 @@
-import { defineComponent, h, ref, inject, provide, onMounted, onUpdated } from 'vue';
+import { defineComponent, h, ref, inject, provide, onMounted, onUpdated, onBeforeUnmount } from 'vue';
 import type { Component, ComponentCustomProps, PropType, Ref, RendererElement, VNode, RendererNode } from 'vue';
 import { DEFINE_PROVIDER, cssVars } from './DEFINE';
 import type { Rt_CssVarsProps } from './DEFINE';
 
 import { useTimeout } from './uilts';
-import { setCssVars, useCssVar, useCssVarForRoot, setCssVar, getCssVar, setStyleProperty, setStyleProperties, setCssVarsForRoot, getCssVarForRoot } from 'pack-utils';
+import { setCssVars, useCssVar, useCssVarForRoot, setCssVar, getCssVar } from 'pack-utils';
+import { useEventListener } from 'pack-utils';
 
-import { createCurve, baseCurve, useSlotProvide, toCssVarStr, layout } from './uilts';
+import { createCurve, baseCurve, useSlotProvide, toCssVarStr, layout, makeDockerItem } from './uilts';
 
 import style from './index.module.scss';
 
@@ -31,49 +32,28 @@ export const Docker = defineComponent({
 
     const setCss = (cssVar: keyof Rt_CssVarsProps, value: string) => setCssVar(view.value, cssVar, value);
     const getCss = (cssVar: keyof Rt_CssVarsProps) => getCssVar(view.value, cssVar);
-
-    // onMounted(() => setCssVars(view.value, cssVars));
-    // setCssVarsForRoot(cssVars);
-    const itemsVNode = slots.default && slots.default() as (VNode<RendererNode, RendererElement>[] | undefined);
-    const controlVNode = slots.control && slots.control();
+    onMounted(() => setCssVars(view.value, props.cssVars));
 
     const hidden = ref(false);
-    const { cancelTimeout, perTimeout, timer: leaveTimer } = useTimeout();
+    const { cancelTimeout: autoHiddenCanelTimeout, perTimeout: autoHiddenPerTimeout, timer: leaveTimer } = useTimeout();
     const { cancelTimeout: moveCancelTimeout, perTimeout: movePreTimeout, timer: moveTimer } = useTimeout();
 
-    function makeDockerItem() {
-      if (Array.isArray(itemsVNode)) {
-        if (controlVNode) {
-          return (<>{itemsVNode}<div class={style.driverLine}></div>{controlVNode}</>);
-        }
-        if ((itemsVNode[0].children as Array<any>).length >= props.driverNums) {
-          const last = (itemsVNode[0].children as Array<any>).pop();
+    const elToCenter = (e: HTMLElement) => e.offsetLeft + parseFloat(getCss('--r-mac-docker-item-size').replace('px', '')) / 2;
+    const elToRight = (e: HTMLElement) => e.offsetLeft + parseFloat(getCss('--r-mac-docker-item-size').replace('px', ''));
+    const resetLayout = () => layout(docker.value, () => 0, elToCenter, props.driverMaxI, props.driverNums);
 
-          return (<>{itemsVNode}<div class={style.driverLine}></div>{last}</>);
-        }
-      }
-      return itemsVNode;
-    }
-
-    onMounted(() => {
-      // 获取 dockerItem 元素位置的函数, 获得元素中间的 x 坐标
-      const elToCenter = (e: HTMLElement) => e.offsetLeft + parseFloat(getCss('--r-mac-docker-item-size').replace('px', '')) / 2;
-      const elToRight = (e: HTMLElement) => e.offsetLeft + parseFloat(getCss('--r-mac-docker-item-size').replace('px', ''));
-
-      const resetLayout = () => layout(docker.value, () => 0, elToCenter, props.driverMaxI, props.driverNums);
-
-      docker.value.addEventListener('mousemove', (e) => {
+    useEventListener(docker, {
+      'mousemove': (e) => {
         if (moveTimer.value) return;
-        movePreTimeout(() => {}, 20);
+        movePreTimeout(() => {}, 8);
 
         const childrenList = docker.value.querySelectorAll(`section.${style.dockerItem}`);
-
-        const curX = e.clientX - docker.value.offsetLeft;
+        const curX = e.clientX - docker.value.getBoundingClientRect().left;
 
         let distEl: HTMLElement | undefined = void 0;
 
         for (let i = 0;i < childrenList.length;i ++) {
-          if (childrenList.length >= props.driverNums) {
+          if (slots.control || (props.autoDriver && childrenList.length >= props.driverNums)) {
             if (i === childrenList.length - 1) {
               resetLayout();
               return;
@@ -96,54 +76,29 @@ export const Docker = defineComponent({
 
         const curve = createCurve(elToCenter(distEl), props.driverEffectWidth, props.driverMaxI);
         layout(docker.value, curve, elToCenter, props.driverMaxI, props.driverNums);
-      });
-
-      docker.value.addEventListener('mouseleave', (e) => resetLayout());
+      },
+      'mouseleave': () => resetLayout()
     });
 
-    onMounted(() => {
-      if (props.autoHidden) {
-        autoHidden();
-
-        perTimeout(() => {
-          hidden.value = true;
-        }, props.autoHidenTimer);
-      }
-    });
-
-    function autoHidden() {
-      view.value.addEventListener('mousemove', (e) => {
-        if (
-          !document.body ||
-          !footer.value ||
-          !document.body.clientHeight || !footer.value.clientHeight
-        ) {
-          cancelTimeout();
+    if (props.autoHidden) {
+      onMounted(() => autoHiddenPerTimeout(() => (hidden.value = true), props.autoHidenTimer));
+      useEventListener(view, 'mousemove', (e) => {
+        if (!footer.value || !footer.value.clientHeight) {
+          autoHiddenCanelTimeout();
           hidden.value = false;
+          return;
         }
-
         if (document.body?.clientHeight - e.clientY <= footer.value?.clientHeight) {
-          cancelTimeout();
+          autoHiddenCanelTimeout();
           if (hidden.value) hidden.value = false;
+          return;
         }
-        else {
 
-          // if (!hidden.value) {
-
-          //   if (leaveTimer.value) return;
-
-          //   perTimeout(() => {
-          //     hidden.value = true;
-          //   }, props.autoHidenTimer);
-          // }
-        }
+        if (leaveTimer.value) return;
+        autoHiddenPerTimeout(() => (hidden.value = true), props.autoHidenTimer);
       });
 
-      footer.value.addEventListener('mouseleave', _ => {
-        perTimeout(() => {
-          hidden.value = true;
-        }, props.autoHidenTimer);
-      });
+      useEventListener(footer, 'mouseleave', () => autoHiddenPerTimeout(() => (hidden.value = true), props.autoHidenTimer));
     }
 
     return () => (
@@ -153,7 +108,7 @@ export const Docker = defineComponent({
         <footer class={hidden.value ? `${style.footer} ${style.hidden}` : `${style.footer}`} ref={footer}>
           <div class={style.docker} ref={docker}>
             <div class={style.back}></div>
-            {makeDockerItem()}
+            {makeDockerItem(slots.default && slots.default(), props.autoDriver, props.driverNums, slots.control && slots.control())}
           </div>
         </footer>
       </div>

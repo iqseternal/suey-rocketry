@@ -7,7 +7,6 @@ import path, { join } from 'path';
 import includePaths from 'rollup-plugin-includepaths';
 import { defineConfig } from 'rollup';
 import del from 'rollup-plugin-delete';
-
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
@@ -17,51 +16,42 @@ import fs from 'fs';
 import autoPrefixer from 'autoprefixer';
 import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-
 import scss from 'rollup-plugin-scss';
 import cssModules from 'css-modules-typescript-loader';
 import postcssModule from 'postcss-modules';
-
+import cleanup from 'rollup-plugin-cleanup';
 import copyScss from './internal/copyScss.js';
 
 const outputDir = 'dist';
 
 const entry = 'packages/index.ts';
-const componentsDir = 'packages/components';
-
-const componentsName = fs.readdirSync(path.resolve(componentsDir));
-
-const componentsEntry = componentsName.map(
-  (name) => `${componentsDir}/${name}/index.ts`
-);
-
-// ES Module打包输出
-const esmOutput = {
-  preserveModules: true,
-  // preserveModulesRoot: 'src',
-  // exports: 'named',
-  assetFileNames: ({ name }) => {
-    const { ext, dir, base } = path.parse(name);
-    if (ext !== '.css') return '[name].[ext]';
-    return path.join(dir, 'style', base);
-  }
-}
 
 export default defineConfig([
   {
-    input: [entry, ...componentsEntry], // 入口文件路径
+    input: [entry], // 入口文件路径
     output: [
       {
         format: 'esm', // ES 模块格式
         dir: path.join(outputDir, 'esm'), // 输出到 dist/esm 目录
-        preserveModules: true
+        preserveModules: true,
+        preserveModulesRoot: 'packages',
+        exports: 'named',
       },
       {
         format: 'cjs', // CommonJS 模块格式
         dir: path.join(outputDir, 'commonjs'), // 输出到 dist/commonjs 目录
-        preserveModules: true
+        preserveModules: true,
+        preserveModulesRoot: 'packages',
+        exports: 'named'
       },
     ],
+    onwarn: (warning) => {
+      if (warning.code === 'THIS_IS_UNDEFINED') {
+        return;
+      }
+      console.error(warning.message);
+    },
+
     external: ['vue'],
     plugins: [
       del({ targets: `${outputDir}/*` }),
@@ -89,6 +79,13 @@ export default defineConfig([
         exclude: ["**/node_modules/**"],
         plugins: ["@vue/babel-plugin-jsx"]
       }),
+      cleanup({
+        comments: 'none',
+        maxEmptyLines: 0,
+        sourcemap: true,
+        extensions: ['js', 'jsx', 'mjs', 'cjs']
+      }),
+      // terser(),
     ],
   }
 ]);

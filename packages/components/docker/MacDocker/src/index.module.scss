@@ -85,7 +85,6 @@
     border-radius: var(--r-mac-docker-redius);
     bottom: var(--r-mac-docker-bottom);
     transition: all .6s ease-out;
-
     -webkit-box-reflect: below 10px -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.05) 100%);
     user-select: none;
     @include width(100%);
@@ -99,7 +98,7 @@
       padding: var(--r-mac-docker-padding-tb) var(--r-mac-docker-padding-lr);
       height: calc(var(--r-mac-docker-item-size) + var(--r-mac-docker-item-padding) * 2);
       border-radius: var(--r-mac-docker-redius);
-      max-width: 80vw;
+      max-width: 100%;
 
 
       gap: var(--r-mac-docker-item-margin);

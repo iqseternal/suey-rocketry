@@ -11,12 +11,14 @@ import { BASE_URL } from "../constants";
 
 const define = <T>(value: T): T => value;
 
+import { AntDesignContainer, ElementPlusContainer, NaiveUIContainer } from '@vitepress-demo-preview/component';
+import '@vitepress-demo-preview/component/dist/style.css';
+
 export default define<Theme>({
   extends: defaultTheme,
-
   enhanceApp: ({ app }) => {
-    // app.component(naem, component);
-
+    app.component('demo-preview', ElementPlusContainer);
+    app.component('preview', ElementPlusContainer);
   },
   setup() {
     const { lang } = useData();

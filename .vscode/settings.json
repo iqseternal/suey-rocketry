@@ -1,0 +1,5 @@
+{
+  "references.preferredLocation": "peek",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "javascript.preferences.importModuleSpecifier": "non-relative"
+}

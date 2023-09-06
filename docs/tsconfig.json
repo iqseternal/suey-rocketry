@@ -1,10 +1,6 @@
 {
+  "extends": "../tsconfig.run.json",
   "compilerOptions": {
-    "lib": ["ESNEXT", "ESNext.String"],
-    "types": ["vite/client"],
-    "baseUrl": ".",
-    "resolveJsonModule": true,
-    "esModuleInterop": true
-  },
-  "include": [".vitepress/**/*.ts", "**/*.ts"]
+
+  }
 }

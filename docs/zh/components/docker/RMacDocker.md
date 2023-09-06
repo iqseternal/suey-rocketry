@@ -1,18 +1,16 @@
+# RMacDocker
+
 ## 容器
 
-Mac容器将为你提供一个类似于Mac的布局效果。
+Mac容器将为你提供一个类似于Mac的布局效果。你只需要关心主视窗内容的书写即可。
 
-:::tip
+就像这样, 你可以自行定义`RMacDockerItem`, 并且可以自定义一些样式参数。
 
-容器的Item放入请控制数量。
-
-:::
+<preview path="../../../examples/docker/RMacDocker.vue" />
 
 ## 主要容器
 
-:::主要容器将在展示页面时为你预置一个展示自定义内容的插槽行为，你的内容将在指定位置展示。但是插槽已经被隐藏了，建议使用```RMacDockerMain```作为子组件放入。
-
-就像这样
+主要容器将在展示页面时为你预置一个展示自定义内容的插槽行为，你的内容将在指定位置展示。但是插槽已经被隐藏了，建议使用```RMacDockerMain```作为子组件放入。
 
 ```vue
 <template>
@@ -26,17 +24,17 @@ import { RMacDocker, RMacDockerMain } from 'packages';
 </script>
 ```
 
-你的内容将会在```RMacDocker```的主要位置显示。
+你的内容将会在 `RMacDocker` 的主要位置显示。
 
 ## 容器项
 
-:::容器项则会像应用程序图标一样，放到屏幕的下方，你可以随意传入，当传入的 Item 数量大于了特定值的时候，会自动地产生```RMacDockerControl```来控制您的应用程序。
+容器项则会像应用程序图标一样，放到屏幕的下方，你可以随意传入，当传入的 Item 数量大于了特定值的时候，会自动地产生```RMacDockerControl```来控制您的应用程序。
 
 ## 容器控制项
 
 Vertical Menu with sub-menus.
 
-:::demo You can use the el-menu-item-group component to create a menu group, and the name of the group is determined by the title prop or a named slot.
+demo You can use the el-menu-item-group component to create a menu group, and the name of the group is determined by the title prop or a named slot.
 
 menu/vertical
 
@@ -44,11 +42,11 @@ menu/vertical
 
 Vertical Menu could be collapsed.
 
-:::demo
+demo
 
 menu/collapse
 
-:::
+
 
 ## Menu Attributes
 
