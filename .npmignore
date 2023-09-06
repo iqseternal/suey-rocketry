@@ -1,6 +1,9 @@
-
 /**/node_modules
 /test
 /source
 /tsconfig.json
-
+/docs
+/internal
+/packages
+/run
+/rollup.config.js
