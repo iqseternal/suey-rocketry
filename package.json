@@ -61,7 +61,6 @@
     "markdown-it-container": "^3.0.0",
     "mini-css-extract-plugin": "^2.7.6",
     "node": "^20.5.1",
-    "node-sass": "^9.0.0",
     "path": "^0.12.7",
     "path-browserify": "^1.0.1",
     "postcss-modules": "^6.0.0",
@@ -82,7 +81,7 @@
     "rollup-plugin-typescript2": "^0.35.0",
     "rollup-plugin-vue": "^6.0.0",
     "rollup-plugin-vue-jsx-compat": "^0.0.6",
-    "sass": "^1.66.1",
+    "sass": "1.32.6",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
     "sucrase": "^3.34.0",
@@ -98,7 +97,8 @@
     "vue": "^3.3.4",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "wisdom-ui": "^0.0.36"
   },
   "dependencies": {
     "@suey/packages": "1.1.11",

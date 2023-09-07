@@ -6,12 +6,12 @@ import { cssVars } from './DEFINE';
 import type { Rt_CssVarsProps } from './DEFINE';
 
 import * as styles from './index.module.scss';
-import { setCssVar, setCssVars, PrinterService, setStyleProperties, getCssVar } from 'pack-utils';
+import { setCssVar, setCssVars, setStyleProperties, getCssVar } from 'pack-utils';
 
 export const setDockerCssVar = (cssVar: keyof Rt_CssVarsProps, value: string) => {
   const dockerDom = document.querySelector(`div.${styles.view}`) as HTMLElement;
   if (!dockerDom) {
-    PrinterService.printError('The element has not been mounted. Please try calling it in the onMounted cycle.');
+    console.error('The element has not been mounted. Please try calling it in the onMounted cycle.');
     return;
   }
   setCssVar(dockerDom, cssVar, value);
@@ -20,7 +20,7 @@ export const setDockerCssVar = (cssVar: keyof Rt_CssVarsProps, value: string) =>
 export const setDockerCssVars = (cssVars: Rt_CssVarsProps) => {
   const dockerDom = document.querySelector(`div.${styles.view}`) as HTMLElement;
   if (!dockerDom) {
-    PrinterService.printError('The element has not been mounted. Please try calling it in the onMounted cycle.');
+    console.error('The element has not been mounted. Please try calling it in the onMounted cycle.');
     return;
   }
   setCssVars(dockerDom, cssVars);
