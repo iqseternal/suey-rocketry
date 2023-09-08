@@ -23,8 +23,5 @@ export default defineConfig({
   server: {
     port: 9000,
     strictPort: true
-  },
-  build: {
-    ssr: false
   }
 })

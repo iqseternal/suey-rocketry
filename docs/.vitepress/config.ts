@@ -5,6 +5,7 @@ import { i18Locales, i18SearchLocales } from "./i18";
 import { mdPlugin } from './plugin';
 import { demoblockVitePlugin, demoblockPlugin } from 'vitepress-theme-demoblock';
 import { containerPreview, componentPreview } from '@vitepress-demo-preview/plugin';
+import { join } from 'path';
 
 export default defineConfig({
   markdown: {
@@ -13,6 +14,7 @@ export default defineConfig({
       md.use(componentPreview);
     }
   },
+  outDir: join(__dirname, '../../dist-docs'),
   title: CONSTANTS.TITLE,
   description: 'Provide Vue with rocket propulsion',
   lang: 'zh',
