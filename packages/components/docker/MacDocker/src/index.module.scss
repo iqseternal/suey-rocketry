@@ -5,15 +5,16 @@
 
   --r-mac-docker-divider-line-style: 3px solid rgba(255, 255, 255, .5); // 分割线样式
   --r-mac-docker-bottom: 40px;
-  --r-mac-docker-box-reflect-distance: -20px;
+  --r-mac-docker-box-reflect-distance: 10px;
+  --r-mac-docker-box-reflect-direction: below;
+  --r-mac-docker-box-reflect-gradlient: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.05) 100%);
 
   --r-mac-docker-padding-lr: 30px;
   --r-mac-docker-padding-tb: 15px; // docer 的内 padding 值
 
-  --r-mac-docker-redius: 35px; // docer 的圆角属性值
+  --r-mac-docker-radius: 35px; // docer 的圆角属性值
   --r-mac-docker-bg: rgba(255, 255, 255, 1); // 背景色; 这个会被做出毛玻璃效果
   --r-mac-docker-bg-blur: 64px; // 毛玻璃像素
-  --r-mac-docker-margin-bottom: 15px; // margin-bottom; 与屏幕底部之间的间隙
   --r-mac-docker-hidden-bg: linear-gradient(to right, blue, red); // 被隐藏了之后的背景颜色
 
   --r-mac-docker-item-size: 45px; // item 大小
@@ -52,7 +53,7 @@
 
     div.docker {
       background: var(--r-mac-docker-hidden-bg) !important;
-      border-radius: var(--r-mac-docker-redius);
+      border-radius: var(--r-mac-docker-radiuse);
       max-width: 300px !important;
       min-width: 300px !important;
       padding-left: 60px !important;
@@ -82,11 +83,12 @@
       transition: all .5s ease-out;
     }
     position: absolute;
-    border-radius: var(--r-mac-docker-redius);
+    border-radius: var(--r-mac-docker-radius);
     bottom: var(--r-mac-docker-bottom);
     transition: all .6s ease-out;
-    -webkit-box-reflect: below 10px -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.05) 100%);
     user-select: none;
+    -webkit-box-reflect: var(--r-mac-docker-box-reflect-direction) var(--r-mac-docker-box-reflect-distance) var(--r-mac-docker-box-reflect-gradlient);
+
     @include width(100%);
     @include height(unset, 40px);
     @include displayFlex(center);
@@ -97,7 +99,7 @@
       opacity: 1;
       padding: var(--r-mac-docker-padding-tb) var(--r-mac-docker-padding-lr);
       height: calc(var(--r-mac-docker-item-size) + var(--r-mac-docker-item-padding) * 2);
-      border-radius: var(--r-mac-docker-redius);
+      border-radius: var(--r-mac-docker-radius);
       max-width: 100%;
 
 
@@ -111,7 +113,7 @@
       div.back {
         width: 100%;
         height: 100%;
-        border-radius: var(--r-mac-docker-redius);
+        border-radius: var(--r-mac-docker-radius);
         animation: all .5s ease-out;
         @include positionLt(absolute, 0, 0);
         @include overflow(hidden);

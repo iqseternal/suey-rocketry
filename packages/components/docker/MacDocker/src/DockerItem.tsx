@@ -7,7 +7,7 @@ import style from './index.module.scss';
 export const DockerItem = defineComponent({
   props: {
     text: { type: String, default: '' },
-    src: { type: String, default : '' }
+    src: { type: String, default : '', required: true }
   },
   emits: {
     itemClick: () => true

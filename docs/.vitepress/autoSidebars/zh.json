@@ -19,7 +19,7 @@
     {
       "text": "容器", "collapsed": false,
       "items": [
-        { "text": "Mac容器", "link": "/components/docker/RMacDocker" }
+        { "text": "RMac 自定义容器", "link": "/components/docker/RMacDocker" }
       ]
     }
   ]
