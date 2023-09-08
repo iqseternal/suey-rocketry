@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 
 export default defineConfig({
+  base: './',
   resolve: {
     alias: {
       '@suey/rocketry': join(__dirname, '../packages'),
@@ -21,6 +22,9 @@ export default defineConfig({
   ],
   server: {
     port: 9000,
-    strictPort: true,
+    strictPort: true
   },
+  build: {
+    ssr: false
+  }
 })

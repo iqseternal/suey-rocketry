@@ -33,16 +33,22 @@ export const I18Lang: Record<I18Key, I18Locales> = {
   }
 };
 
-export const i18Locales: Record<I18Key, I18Locales> = Object.keys(I18Lang).reduce((pre, cur: I18Key) => {
-  pre[cur] = {
-    ...I18Lang[cur],
-    themeConfig: {
-      ...I18Lang[cur].themeConfig,
-      nav: i18Navs[cur],
-      sidebar: i18Sidebars[cur] as DefaultTheme.SidebarItem[],
-    }
-  };
+export const i18Locales: Record<I18Key, I18Locales> = (() => {
+  const locales = {} as Record<I18Key, I18Locales>;
 
-  return pre;
-}, {} as Record<I18Key, I18Locales>);
+  for (const key in I18Lang) {
+    locales[key] = {
+      ...I18Lang[key],
+      themeConfig: {
+        ...I18Lang[key].themeConfig,
+        nav: i18Navs[key],
+        sidebar: i18Sidebars[key],
+      }
+    }
+  }
+
+  return locales;
+})();
+
+
 

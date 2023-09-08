@@ -1,5 +1,5 @@
 <template>
-  <RMacDocker class="docker" :driverMaxI="1.2">
+  <RMacDocker :style="{ width: '100%', height: 'unset', aspectRatio: '16 / 9' }" :driverMaxI="1.2">
     <template #main>Dfffff</template>
 
     <template #default>
@@ -26,15 +26,6 @@ const list = [
   'https://tse1-mm.cn.bing.net/th/id/OIP-C.hlviKjBLfMuQ9Fr7J2cWzwAAAA?w=140&h=150&c=7&r=0&o=5&pid=1.7',
   'https://tse1-mm.cn.bing.net/th/id/OIP-C.hlviKjBLfMuQ9Fr7J2cWzwAAAA?w=140&h=150&c=7&r=0&o=5&pid=1.7',
   'https://tse1-mm.cn.bing.net/th/id/OIP-C.hlviKjBLfMuQ9Fr7J2cWzwAAAA?w=140&h=150&c=7&r=0&o=5&pid=1.7',
-  'https://tse2-mm.cn.bing.net/th/id/OIP-C.bkdDrOZ9W9bnZH62pIiZqgAAAA?w=150&h=150&c=7&r=0&o=5&pid=1.7',
-  'https://tse2-mm.cn.bing.net/th/id/OIP-C.bkdDrOZ9W9bnZH62pIiZqgAAAA?w=150&h=150&c=7&r=0&o=5&pid=1.7',
 ];
 </script>
 
-<style lang="scss" scoped>
-.docker {
-  width: 100%;
-  height: unset;
-  aspect-ratio: 16 / 9;
-}
-</style>

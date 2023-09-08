@@ -18,12 +18,9 @@ export const i18Navs: Record<I18Key, DefaultTheme.NavItem[]> = {
   en: [
     {
       text: 'Guide',
-      items: [
-        { text: 'index', link: '/en/guide/index' },
-        { text: 'Button', link: '/en/guide/Button' },
-        { text: 'Card', link: '/en/guide/Card' }
-      ]
+      link: '/en/guide/basic/Navigation'
     },
+    { text: 'Components', link: '/en/components/docker/RMacDocker' },
     {
       text: 'Link',
       items: [

@@ -1,0 +1,26 @@
+{
+  "/guide/": [
+    {
+      "lang": { "zh": "基本", "en": "Basic" }, "collapsed": false,
+      "items": [
+        { "lang": { "zh": "导航", "en": "Navigation" }, "link": "/guide/basic/Navigation" },
+        { "lang": { "zh": "安装", "en": "Install" }, "link": "/guide/basic/Install" },
+        { "lang": { "zh": "快速开始", "en": "Qucik Start" }, "link": "/guide/basic/QuickStart" }
+      ]
+    },
+    {
+      "lang": { "zh": "附加", "en": "Additional" }, "collapsed": false,
+      "items": [
+        { "lang": { "zh": "Surly", "en": "Surly" }, "link": "/guide/additional/Surly" }
+      ]
+    }
+  ],
+  "/components/": [
+    {
+      "lang": { "zh": "容器", "en": "Docker" }, "collapsed": false,
+      "items": [
+        { "lang": { "zh": "RMac自定义容器", "en": "RMacDocker" }, "link": "/components/docker/RMacDocker" }
+      ]
+    }
+  ]
+}

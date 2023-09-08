@@ -1,5 +1,5 @@
 
-export const cssRoot = document.querySelector(':root') as HTMLElement;
+export const cssRoot = globalThis.document ? document.querySelector(':root') as HTMLElement : null;
 
 export const setCssVar = <T extends string>(node: HTMLElement, cssVar: T, value: string, isImportant?: boolean) =>
   node.style.setProperty(cssVar, value, isImportant ? '!important' : void 0);

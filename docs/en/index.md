@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/what-is-rocketry
+      link: /zh/guide/what-is-rocketry
     - theme: alt
       text: View on GitHub
       link: https://github.com/iqseternal/suey-rokcetry
