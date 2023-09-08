@@ -14,7 +14,7 @@ export default defineConfig({
       md.use(componentPreview);
     }
   },
-  outDir: join(__dirname, '../../dist-docs'),
+  outDir: join(__dirname, '../../docs'),
   title: CONSTANTS.TITLE,
   description: 'Provide Vue with rocket propulsion',
   lang: 'zh',
