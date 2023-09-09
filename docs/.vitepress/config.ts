@@ -17,7 +17,7 @@ export default defineConfig({
   title: CONSTANTS.TITLE,
   description: 'Provide Vue with rocket propulsion',
   lang: 'zh',
-  base: '/',
+  base: '/suey-rocketry/',
   themeConfig: {
     logo: 'https://tse2-mm.cn.bing.net/th/id/OIP-C.bTTn1-D9WG6TCaI-9t9iDQAAAA?w=149&h=150&c=7&r=0&o=5&pid=1.7',
     siteTitle: CONSTANTS.TITLE, // 会显示在页面左上角
