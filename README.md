@@ -1,22 +1,57 @@
+<h1 align="center">@suey/rocketry</h1>
+<h2 align="center"><a href="https://iqseternal.github.io/suey-rocketry/" target="_blank">Document</a></h2>
 
-基于VUE3的一款个人组件库
+# Install
 
-pnpm install @suey/rocketry --save
+## Compatibility
 
-组件已经可以正常使用, RMacDocker, RMacDockerItem, RMacDockerControl
-文档正在编写中, 目前仅给出一个使用样例
-这个示例正在疯狂编写和优化中... 请等待
+Rocketry's output file is used to build your own application in the framework, and this package uses a lot of new syntax. If you want to be compatible with more browsers, please add Babel and Polyfill yourself, and ensure that the build tool helps you to be compatible with lower versions of browsers.
 
-```ts
-// main.ts
+| ![IE](https://cdn.jsdelivr.net/npm/@browser-logos/edge/edge_32x32.png) | ![Firefox](https://cdn.jsdelivr.net/npm/@browser-logos/firefox/firefox_32x32.png) | ![Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) | ![Safari](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Edge ≥ 79                                                              | Firefox ≥ 78                                                                      | Chrome ≥ 64                                                                    | Safari ≥ 12                                                                    |
 
-import '@suey/rocketry/index.css';
+## Version
 
+Rocketry is currently a personal component library that handles development iterations.
+
+## Using Package Management Tools
+
+**I recommend using the package management tool (NPM, [YARN])（ https://classic.yarnpkg.com/lang/en/ ）, [PNPM]（ https://pnpm.io/ ））Go install Rocketry**
+
+This way, you can use the build tool [Vite]（ https://vitejs.dev ）And [webpack]（ https://webpack.js.org/ ）Or more.
+
+```shell
+# Choose your favorite build tool
+
+# NPM
+$ npm install @suey/rocketry --save
+
+# Yarn
+$ yarn add @suey/rocketry
+
+# pnpm
+$ pnpm install @suey/rocketry
 ```
+
+If your network environment is not good, it is recommended to use the image source [cnpm]（ https://github.com/cnpm/cnpm ）Or [Alibaba]（ https://registry.npmmirror.com/ ）.
+
+<hr />
+
+The component is ready for normal use, and currently only one usage example is provided
+
+## Example
+
+```typescript
+// main.ts
+import '@suey/rocketry/index.css';
+```
+
+
 
 ```vue
 <template>
-  <RMacDocker class="docker" :driverMaxI="1.2">
+  <RMacDocker>
     <template #main>Dfffff</template>
 
     <template #default>
@@ -30,12 +65,8 @@ import '@suey/rocketry/index.css';
 </template>
 
 <script lang="ts" setup>
-import { Ref, onMounted, ref } from 'vue';
-import { RMacDocker, RMacDockerItem, rSetMacDockerCssVars } from '@suey/rocketry';
-
-onMounted(() => rSetMacDockerCssVars({
-  '--r-mac-docker-item-margin-bottom': '8px'
-}));
+import { onMounted } from 'vue';
+import { RMacDocker, RMacDockerItem } from '@suey/rocketry';
 
 const list = [
   'https://tse4-mm.cn.bing.net/th/id/OIP-C.wPY2_PJMnXtLAUKPUAlwlAAAAA?w=152&h=140&c=7&r=0&o=5&pid=1.7',
@@ -43,16 +74,6 @@ const list = [
   'https://tse1-mm.cn.bing.net/th/id/OIP-C.hlviKjBLfMuQ9Fr7J2cWzwAAAA?w=140&h=150&c=7&r=0&o=5&pid=1.7',
   'https://tse1-mm.cn.bing.net/th/id/OIP-C.hlviKjBLfMuQ9Fr7J2cWzwAAAA?w=140&h=150&c=7&r=0&o=5&pid=1.7',
   'https://tse1-mm.cn.bing.net/th/id/OIP-C.hlviKjBLfMuQ9Fr7J2cWzwAAAA?w=140&h=150&c=7&r=0&o=5&pid=1.7',
-  'https://tse2-mm.cn.bing.net/th/id/OIP-C.bkdDrOZ9W9bnZH62pIiZqgAAAA?w=150&h=150&c=7&r=0&o=5&pid=1.7',
-  'https://tse2-mm.cn.bing.net/th/id/OIP-C.bkdDrOZ9W9bnZH62pIiZqgAAAA?w=150&h=150&c=7&r=0&o=5&pid=1.7',
 ];
 </script>
-
-<style lang="scss" scoped>
-.docker {
-  width: 100%;
-  height: unset;
-  aspect-ratio: 16 / 9;
-}
-</style>
 ```

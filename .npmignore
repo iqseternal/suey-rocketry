@@ -2,6 +2,8 @@
 /test
 /source
 /tsconfig.json
+/tsconfig.run.json
+/deploy.sh
 /docs
 /internal
 /packages

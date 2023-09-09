@@ -5,7 +5,7 @@ export const i18Navs: Record<I18Key, DefaultTheme.NavItem[]> = {
   zh: [
     {
       text: '指引',
-      link: '/zh/guide/basic/Navigation'
+      link: '/zh/guide/basic/Design'
     },
     { text: '组件', link: '/zh/components/docker/RMacDocker' },
     {
@@ -18,7 +18,7 @@ export const i18Navs: Record<I18Key, DefaultTheme.NavItem[]> = {
   en: [
     {
       text: 'Guide',
-      link: '/en/guide/basic/Navigation'
+      link: '/en/guide/basic/Design'
     },
     { text: 'Components', link: '/en/components/docker/RMacDocker' },
     {
