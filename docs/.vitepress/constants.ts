@@ -1,6 +1,6 @@
 import { defineConfig, type DefaultTheme, type UserConfig, type LocaleConfig, type ThemeOptions, type defineConfigWithTheme } from 'vitepress';
 
-export const BASE_URL = '/docs/';
+export const BASE_URL = '/suey-rocketry/';
 
 export const TITLE = 'Rocketry';
 

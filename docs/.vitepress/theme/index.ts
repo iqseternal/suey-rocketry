@@ -17,7 +17,7 @@ import '@vitepress-demo-preview/component/dist/style.css';
 export default define<Theme>({
   extends: defaultTheme,
   enhanceApp: ({ app }) => {
-    app.component('preview', ElementPlusContainer);
+    app.component('demo-preview', ElementPlusContainer);
   },
   setup() {
     const { lang } = useData();
@@ -28,8 +28,8 @@ export default define<Theme>({
         // 处理跟路由的时候没有默认语言的配置进入
         if (router.route.path === BASE_URL) router.go(BASE_URL + lang.value + '/');
 
-        // 这里会记录当前的语言, 自动更换
 
+        // 这里会记录当前的语言, 自动更换
         if (globalThis.document) globalThis.document.cookie = `nf_lang=${lang.value}; expires=Mon, 1 Jan 2024 00:00:00 UTC; path=/`
       }
     })
