@@ -160,7 +160,7 @@ export function makeDockerItem(itemsVNode: VNode[], autoDriver: boolean, driverN
     if (controlVNode) {
       return (<>{itemsVNode}<div class={styles.driverLine}></div>{controlVNode}</>);
     }
-    if (autoDriver && (itemsVNode[0].children as Array<any>).length >= driverNums) {
+    if (autoDriver && itemsVNode.length && (itemsVNode[0].children as Array<any>).length >= driverNums) {
       const last = (itemsVNode[0].children as Array<any>).pop();
 
       return (<>{itemsVNode}<div class={styles.driverLine}></div>{last}</>);

@@ -1,26 +1,17 @@
-import vue from 'rollup-plugin-vue';
-import typescript from 'rollup-plugin-typescript2';
-import sass from 'rollup-plugin-sass';
-import postcss from 'rollup-plugin-postcss';
-import css from 'rollup-plugin-css-only';
-import path, { join } from 'path';
-import includePaths from 'rollup-plugin-includepaths';
 import { defineConfig } from 'rollup';
+import { join } from 'path';
+
 import del from 'rollup-plugin-delete';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import json from '@rollup/plugin-json';
-import babel from '@rollup/plugin-babel';
-import dts from 'rollup-plugin-dts';
-import fs from 'fs';
-import autoPrefixer from 'autoprefixer';
-import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import scss from 'rollup-plugin-scss';
-import cssModules from 'css-modules-typescript-loader';
-import postcssModule from 'postcss-modules';
+import postcss from 'rollup-plugin-postcss';
+import autoPrefixer from 'autoprefixer';
+import vue from 'rollup-plugin-vue';
+import resolve from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
+import commonjs from '@rollup/plugin-commonjs';
+import typescript from 'rollup-plugin-typescript2';
+import babel from '@rollup/plugin-babel';
 import cleanup from 'rollup-plugin-cleanup';
-import copyScss from './internal/copyScss.js';
 
 const outputDir = 'dist';
 
@@ -32,14 +23,14 @@ export default defineConfig([
     output: [
       {
         format: 'esm', // ES 模块格式
-        dir: path.join(outputDir, 'esm'), // 输出到 dist/esm 目录
+        dir: join(outputDir, 'esm'), // 输出到 dist/esm 目录
         preserveModules: true,
         preserveModulesRoot: 'packages',
         exports: 'named',
       },
       {
         format: 'cjs', // CommonJS 模块格式
-        dir: path.join(outputDir, 'commonjs'), // 输出到 dist/commonjs 目录
+        dir: join(outputDir, 'commonjs'), // 输出到 dist/commonjs 目录
         preserveModules: true,
         preserveModulesRoot: 'packages',
         exports: 'named'
@@ -85,7 +76,6 @@ export default defineConfig([
         sourcemap: true,
         extensions: ['js', 'jsx', 'mjs', 'cjs']
       }),
-      // terser(),
     ],
   }
 ]);

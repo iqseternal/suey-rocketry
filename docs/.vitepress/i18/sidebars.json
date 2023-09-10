@@ -1,6 +1,10 @@
 {
   "/guide/": [
     {
+      "lang": { "zh": "介绍", "en": "What is Rocketry" },
+      "link": "/guide/what-is-rocketry"
+    },
+    {
       "lang": { "zh": "基本", "en": "Basic" }, "collapsed": false,
       "items": [
         { "lang": { "zh": "设计", "en": "Design" }, "link": "/guide/basic/Design" },

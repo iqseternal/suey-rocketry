@@ -16,7 +16,7 @@ export default defineConfig({
   },
   title: CONSTANTS.TITLE,
   description: 'Provide Vue with rocket propulsion',
-  lang: 'zh',
+  lang: 'en',
   base: '/suey-rocketry/',
   outDir: join(__dirname, './dist/suey-rocketry/'),
   themeConfig: {
