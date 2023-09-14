@@ -1,0 +1,68 @@
+.container {
+  padding: 50px;
+
+  .containerTitle {
+    padding: 20px;
+
+    p {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+
+      img {
+        margin-bottom: 20px;
+      }
+
+      button{
+        padding: 12px 20px;
+        background: #087ea4;
+        margin-right: 20px;
+        border-radius: 9999px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+
+        &:hover {
+          background: rgb(8, 126, 164,.8);
+        }
+      }
+
+      .guide {
+        color: #23272f;
+        background: #fff;
+        border: 1px solid #d9dbe3;
+
+        &:hover {
+          background: rgb(229, 231, 235,.3);
+        }
+      }
+    }
+
+
+
+
+    h1,h2 {
+      text-align: center;
+    }
+
+    h1 {
+      color: #23272f;
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.375;
+    }
+
+    h2 {
+      color: #404756;
+      font-size: 32px;
+      line-height: 1.375;
+    }
+  }
+}
+
+
+.content {
+  height: 60px;
+  background: yellowgreen;
+}
+

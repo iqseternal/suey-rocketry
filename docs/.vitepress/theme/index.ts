@@ -14,10 +14,13 @@ const define = <T>(value: T): T => value;
 import { AntDesignContainer, ElementPlusContainer, NaiveUIContainer } from '@vitepress-demo-preview/component';
 import '@vitepress-demo-preview/component/dist/style.css';
 
+import Home from "../components/home";
+
 export default define<Theme>({
   extends: defaultTheme,
   enhanceApp: ({ app }) => {
     app.component('demo-preview', ElementPlusContainer);
+    app.component('home',Home);
   },
   setup() {
     const { lang } = useData();
